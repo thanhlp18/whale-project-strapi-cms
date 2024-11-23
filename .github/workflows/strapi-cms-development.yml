@@ -30,3 +30,22 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: thanhlp188/strapi-cms:v1
+
+  deploy:
+    needs: build
+    environment:
+      name: Development
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger deployment
+        run: |
+          curl --request POST \
+          --url ${{ vars.WEBHOOK_ENDPOINT }} \
+          --header "Content-Type: application/json" \
+          --header "x-webhook-signature: ${{ secrets.WEBHOOK_SECRET }}" \
+          --data '{
+              "inputs": {
+                  "deployment": "strapi-cms",
+                  "namespace": "strapi-cms"
+              }
+          }'
