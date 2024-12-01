@@ -16,7 +16,7 @@
       "type": "text"
     },
     "description": {
-      "type": "string"
+      "type": "text"
     },
     "cover": {
       "type": "media",
